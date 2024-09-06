@@ -1,0 +1,2 @@
+# proizvodstvo
+Dlya ponimaniya schem

@@ -12,6 +12,7 @@
             overflow-x: hidden; /* Убираем горизонтальную прокрутку */
         }
 
+
         #items {
             display: flex;
             flex-wrap: wrap;
@@ -139,8 +140,8 @@
     </div>
 </div>
 
-    <div id="app" style="display: none;">
-        <img id="main-image" src="" alt="">
+    <div id="app">
+        <img id="main-image" src="" alt="Выбранный ингредиент">
         <div id="caption"></div>
 
      //   <div id="tools">
@@ -193,21 +194,24 @@
 
 
         function selectItem(imageSrc, captionText) {
-    selectedItem = captionText;
-    currentStage = 0;  // Сбрасываем этап для нового ингредиента
+            console.log("Выбран элемент:", captionText); // Выводим сообщение в консоль
 
-    // Скрываем экран с ингредиентами
-    document.getElementById('items').style.display = 'none';
+            selectedItem = captionText;
+            currentStage = 0; // Сбрасываем этап
 
-    // Показываем экран с выбранным ингредиентом
-    document.getElementById('app').style.display = 'block';
-    document.getElementById('main-image').src = imageSrc;
-    document.getElementById('caption').textContent = captionText;
+            // Прячем главный экран и показываем экран ингредиента
+            document.getElementById('items').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
 
-    // Обновляем доступность процессов и добавок
-    document.getElementById('additives').style.display = 'block';
-    document.getElementById('processes').style.display = 'block';
-}
+            // Обновляем изображение и подпись
+            document.getElementById('main-image').src = imageSrc;
+            document.getElementById('caption').textContent = captionText;
+        }
+
+        function goToMain() {
+            document.getElementById('items').style.display = 'flex';
+            document.getElementById('app').style.display = 'none';
+        }
 
 
 

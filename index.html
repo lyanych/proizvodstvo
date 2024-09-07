@@ -7,30 +7,28 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
             background-color: #f3f3f3;
+            overflow-x: hidden; /* Убираем горизонтальную прокрутку */
         }
 
         #items {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
+            padding: 20px;
         }
 
         .item {
             text-align: center;
-            margin: 20px;
+            margin: 10px;
             cursor: pointer;
+            width: 150px;
         }
 
         .item img {
-            width: 150px;
-            height: 150px;
+            width: 100%;
+            height: auto;
             border-radius: 10px;
             transition: transform 0.3s ease;
         }
@@ -46,96 +44,65 @@
 
         #app {
             display: none;
-            width: 80%;
-            max-width: 1200px;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #main-content {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            align-items: center;
+            padding: 20px;
         }
 
         #main-image {
-            width: 400px;
+            width: 100%;
+            max-width: 400px;
             height: auto;
-            margin: 20px;
+            margin-bottom: 20px;
         }
 
         #tools {
             display: flex;
             justify-content: space-between;
-            width: 100%;
-            max-width: 800px;
+            align-items: flex-start;
+            padding: 20px;
         }
 
-        #processes,
-        #additives {
-            width: 45%;
-        }
-
-        #tools div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .process-item,
-        .additive-item {
+        .additive-item, .process-item {
             text-align: center;
             margin: 10px;
             cursor: pointer;
+            width: 120px;
         }
 
-        .process-item img,
-        .additive-item img {
-            width: 100px;
-            height: 100px;
+        .additive-item img, .process-item img {
+            width: 100%;
+            height: auto;
             border-radius: 10px;
             transition: transform 0.3s ease;
         }
 
-        .process-item img:hover,
-        .additive-item img:hover {
+        .additive-item img:hover, .process-item img:hover {
             transform: scale(1.1);
         }
 
-        .process-item .caption,
-        .additive-item .caption {
+        .additive-caption, .process-caption {
             margin-top: 5px;
-            font-size: 14px;
+            font-size: 16px;
         }
 
-        #goToMain {
+        #back-to-main {
             margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
         }
 
-        .alert {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            border: 1px solid #ccc;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            text-align: center;
-        }
+        /* Стиль для адаптивности */
+        @media (max-width: 768px) {
+            #tools {
+                flex-direction: column;
+                align-items: center;
+            }
 
-        .alert button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+            .additive-item, .process-item {
+                width: 100px;
+            }
+
+            #main-image {
+                max-width: 300px;
+            }
         }
     </style>
 </head>
@@ -145,18 +112,16 @@
             <img src="Сырье/виноград.png" alt="Виноград">
             <div class="caption">Виноград</div>
         </div>
-        <!-- Добавь остальные ингредиенты здесь -->
+        <!-- Добавь остальные ингредиенты так же -->
     </div>
 
     <div id="app">
-        <div id="main-content">
+        <img id="main-image" src="" alt="">
+        <div id="caption"></div>
+
+        <div id="tools">
             <div id="processes">
                 <!-- Процессы будут добавлены динамически -->
-            </div>
-
-            <div>
-                <img id="main-image" src="" alt="">
-                <div id="caption"></div>
             </div>
 
             <div id="additives">
@@ -164,31 +129,38 @@
             </div>
         </div>
 
-        <button id="goToMain" onclick="goToMain()">На главный экран</button>
+        <button id="back-to-main" onclick="goToMain()">На главный экран</button>
     </div>
 
     <script>
         const additives = [
-            {name: 'Спирт', src: 'Добавки/спирт.png'},
-            {name: 'Растения', src: 'Добавки/растения.png'},
-            {name: 'Сахар', src: 'Добавки/сахар.png'},
-            // Добавь остальные добавки
+            { name: 'Спирт', image: 'Добавки/спирт.png' },
+            { name: 'Растения', image: 'Добавки/растения.png' },
+            { name: 'Сахар', image: 'Добавки/сахар.png' },
+            { name: 'Дрожжи', image: 'Добавки/дрожжи.png' },
+            { name: 'Полынь', image: 'Добавки/полынь.png' },
+            { name: 'Можжевельник', image: 'Добавки/можжевельник.png' },
+            { name: 'Сок', image: 'Добавки/сок.png' },
+            { name: 'Мягкая вода', image: 'Добавки/мягкая_вода.png' },
+            { name: 'Колер', image: 'Добавки/колер.png' },
+            { name: 'Хмель', image: 'Добавки/хмель.png' },
+            { name: 'Сливки', image: 'Добавки/сливки.png' }
         ];
 
         const processes = [
-            {name: 'Мацерация (Настаивание)', src: 'Процессы/мацерация.png'},
-            {name: 'Фильтрация', src: 'Процессы/фильтрация.png'},
-            {name: 'Дистилляция (перегонка)', src: 'Процессы/дистилляция.png'},
-            {name: 'Ректификация', src: 'Процессы/ректификация.png'},
-            {name: 'Ферментация (Брожение)', src: 'Процессы/брожение.png'},
-            {name: 'Гомогенизация', src: 'Процессы/гомогенизация.png'},
-            {name: 'Выдержка', src: 'Процессы/выдержка.png'},
-            {name: 'Прессование (Отжим сока)', src: 'Процессы/отжим.png'},
-            {name: 'Запекание', src: 'Процессы/запекание.png'},
-            {name: 'Варка', src: 'Процессы/варка.png'},
-            {name: 'Дробление', src: 'Процессы/дробление.png'},
-            {name: 'Гребнеотделение', src: 'Процессы/гребнеотделение.png'},
-            {name: 'Соложение', src: 'Процессы/соложение.png'}
+            { name: 'Мацерация (Настаивание)', image: 'Процессы/мацерация.png' },
+            { name: 'Фильтрация', image: 'Процессы/фильтрация.png' },
+            { name: 'Дистилляция (перегонка)', image: 'Процессы/дистилляция.png' },
+            { name: 'Ректификация', image: 'Процессы/ректификация.png' },
+            { name: 'Ферментация (Брожение)', image: 'Процессы/ферментация.png' },
+            { name: 'Гомогенизация', image: 'Процессы/гомогенизация.png' },
+            { name: 'Выдержка', image: 'Процессы/выдержка.png' },
+            { name: 'Прессование (Отжим сока)', image: 'Процессы/прессование.png' },
+            { name: 'Запекание', image: 'Процессы/запекание.png' },
+            { name: 'Варка', image: 'Процессы/варка.png' },
+            { name: 'Дробление', image: 'Процессы/дробление.png' },
+            { name: 'Гребнеотделение', image: 'Процессы/гребнеотделение.png' },
+            { name: 'Соложение', image: 'Процессы/соложение.png' }
         ];
 
         let selectedItem = null;
@@ -198,88 +170,65 @@
             selectedItem = captionText;
             currentStage = 0;
             document.getElementById('items').style.display = 'none';
-            document.getElementById('app').style.display = 'flex';
+            document.getElementById('app').style.display = 'block';
             document.getElementById('main-image').src = imageSrc;
             document.getElementById('caption').textContent = captionText;
-            loadOptions();
+            updateOptions();
         }
 
-        function loadOptions() {
+        function updateOptions() {
             const processesContainer = document.getElementById('processes');
             const additivesContainer = document.getElementById('additives');
+            
+            // Очистка контейнеров
             processesContainer.innerHTML = '';
             additivesContainer.innerHTML = '';
-
+            
+            // Добавление процессов
             processes.forEach(process => {
                 const div = document.createElement('div');
                 div.className = 'process-item';
-                div.innerHTML = `<img src="${process.src}" alt="${process.name}"><div class="caption">${process.name}</div>`;
                 div.onclick = () => applyProcess(process.name);
+                
+                const img = document.createElement('img');
+                img.src = process.image;
+                img.alt = process.name;
+
+                const caption = document.createElement('div');
+                caption.className = 'process-caption';
+                caption.textContent = process.name;
+
+                div.appendChild(img);
+                div.appendChild(caption);
                 processesContainer.appendChild(div);
             });
 
+            // Добавление добавок
             additives.forEach(additive => {
                 const div = document.createElement('div');
                 div.className = 'additive-item';
-                div.innerHTML = `<img src="${additive.src}" alt="${additive.name}"><div class="caption">${additive.name}</div>`;
                 div.onclick = () => applyAdditive(additive.name);
+                
+                const img = document.createElement('img');
+                img.src = additive.image;
+                img.alt = additive.name;
+
+                const caption = document.createElement('div');
+                caption.className = 'additive-caption';
+                caption.textContent = additive.name;
+
+                div.appendChild(img);
+                div.appendChild(caption);
                 additivesContainer.appendChild(div);
             });
         }
 
         function applyProcess(process) {
-            if (selectedItem === 'Виноград') {
-                if (process === 'Гребнеотделение' && currentStage === 0) {
-                    document.getElementById('main-image').src = 'Итог/Виноград/очищенный_виноград.png';
-                    document.getElementById('caption').textContent = 'Очищенный виноград';
-                    currentStage = 1;
-                } else if (process === 'Ферментация (Брожение)' && currentStage === 1) {
-                    document.getElementById('main-image').src = 'Итог/Виноград/сброженный_виноград.png';
-                    document.getElementById('caption').textContent = 'Сброженный виноград';
-                    currentStage = 2;
-                } else if (process === 'Прессование (Отжим сока)') {
-                    if (currentStage === 2) {
-                        document.getElementById('main-image').src = 'Итог/Виноград/брага.png';
-                        document.getElementById('caption').textContent = 'Какая-то брага, но не вино';
-                        showAlertWithRetry();
-                        currentStage = 3;
-                    } else if (currentStage === 1) {
-                        document.getElementById('main-image').src = 'Итог/Виноград/виноградный_сок.png';
-                        document.getElementById('caption').textContent = 'Виноградный сок';
-                        currentStage = 4;
-                    } else {
-                        showAlertWithRetry();
-                    }
-                } else if (process === 'Мацерация (Настаивание)' && currentStage === 4) {
-                    document.getElementById('main-image').src = 'Итог/Виноград/вино.png';
-                    document.getElementById('caption').textContent = 'Вино';
-                    currentStage = 5;
-                } else {
-                    showAlertWithRetry();
-                }
-            }
+            // Логика для обработки процессов
         }
 
         function applyAdditive(additive) {
-            if (selectedItem === 'Виноград') {
-                if (additive === 'Спирт') {
-                    if (currentStage === 5) {
-                        document.getElementById('main-image').src = 'Итог/Виноград/вино_с_спиртом.png';
-                        document.getElementById('caption').textContent = 'Вино с добавлением спирта';
-                        currentStage = 6;
-                    } else {
-                        showAlertWithRetry();
-                    }
-                } else if (additive === 'Сахар') {
-                    if (currentStage === 5) {
-                        document.getElementById('main-image').src = 'Итог/Виноград/вино_с_сахаром.png';
-                        document.getElementById('caption').textContent = 'Вино с добавлением сахара';
-                        currentStage = 6;
-                    } else {
-                        showAlertWithRetry();
-                    }
-                }
-            }
+            // Логика для обработки добавок
         }
 
         function goToMain() {
@@ -287,25 +236,6 @@
             document.getElementById('app').style.display = 'none';
             selectedItem = null;
             currentStage = 0;
-        }
-
-        function showAlertWithRetry() {
-            const alertDiv = document.createElement('div');
-            alertDiv.className = 'alert';
-
-            const message = document.createElement('p');
-            message.textContent = 'Так ничего не выйдет, попробуйте сначала';
-            alertDiv.appendChild(message);
-
-            const retryButton = document.createElement('button');
-            retryButton.textContent = 'Попробовать снова';
-            retryButton.onclick = () => {
-                goToMain();
-                document.body.removeChild(alertDiv);
-            };
-            alertDiv.appendChild(retryButton);
-
-            document.body.appendChild(alertDiv);
         }
     </script>
 </body>

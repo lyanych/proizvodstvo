@@ -189,14 +189,29 @@
         let selectedItem = null;
         let currentStage = 0;
 
+
+
+
         function selectItem(imageSrc, captionText) {
     selectedItem = captionText;
     currentStage = 0;  // Сбрасываем этап для нового ингредиента
+
+    // Скрываем экран с ингредиентами
     document.getElementById('items').style.display = 'none';
+
+    // Показываем экран с выбранным ингредиентом
     document.getElementById('app').style.display = 'block';
     document.getElementById('main-image').src = imageSrc;
     document.getElementById('caption').textContent = captionText;
+
+    // Обновляем доступность процессов и добавок
+    document.getElementById('additives').style.display = 'block';
+    document.getElementById('processes').style.display = 'block';
 }
+
+
+
+
 
         function updateOptions() {
             const processesContainer = document.getElementById('processes');

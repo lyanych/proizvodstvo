@@ -123,6 +123,9 @@
             <button onclick="showOptions('processes')">Процессы</button>
 
             <ul id="options-list"></ul>
+
+<button onclick="goBack()">Назад</button>
+<button onclick="goToMain()">На главный экран</button>
         </div>
     </div>
 
@@ -240,6 +243,26 @@ function showAlertWithRetry() {
     alertDiv.appendChild(retryButton);
 
     document.body.appendChild(alertDiv); // Добавить окно с сообщением на страницу
+
+function goBack() {
+    if (previousStages.length > 0) {
+        const lastStage = previousStages.pop();
+        document.getElementById('main-image').src = lastStage.imageSrc;
+        document.getElementById('caption').textContent = lastStage.caption;
+        currentStage--;
+    } else {
+        alert("Назад больше нельзя.");
+    }
+}
+
+function goToMain() {
+    document.getElementById('items').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+    selectedItem = null;
+    currentStage = 0;
+    previousStages.length = 0;
+}
+
 }
     </script>
 </body>

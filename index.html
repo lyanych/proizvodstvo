@@ -112,7 +112,31 @@
             <img src="Сырье/виноград.png" alt="Виноград">
             <div class="caption">Виноград</div>
         </div>
-        <!-- Добавь остальные ингредиенты здесь -->
+
+    <div class="item" onclick="selectItem('Сырье/яблоки.png', 'Яблоки')">
+        <img src="Сырье/яблоки.png" alt="Яблоки">
+        <div class="caption">Яблоки</div>
+    </div>
+
+    <div class="item" onclick="selectItem('Сырье/фрукты_ягоды.png', 'Фрукты/Ягоды')">
+        <img src="Сырье/фрукты_ягоды.png" alt="Фрукты/Ягоды">
+        <div class="caption">Фрукты/Ягоды</div>
+    </div>
+
+    <div class="item" onclick="selectItem('Сырье/сахарный_тростник.png', 'Сахарный тростник')">
+        <img src="Сырье/сахарный_тростник.png" alt="Сахарный тростник">
+        <div class="caption">Сахарный тростник</div>
+    </div>
+
+    <div class="item" onclick="selectItem('Сырье/голубая_агава.png', 'Голубая агава')">
+        <img src="Сырье/голубая_агава.png" alt="Голубая агава">
+        <div class="caption">Голубая агава</div>
+    </div>
+
+    <div class="item" onclick="selectItem('Сырье/зерно.png', 'Зерно')">
+        <img src="Сырье/зерно.png" alt="Зерно">
+        <div class="caption">Зерно</div>
+    </div>
     </div>
 
     <div id="app">
@@ -248,7 +272,7 @@
                     document.getElementById('main-image').src = 'Итог/Виноград/очищенный_виноград.png';
                     document.getElementById('caption').textContent = 'Очищенный виноград';
                     currentStage = 2;
-                } else if (process === 'Ферментация (Брожение)' && currentStage === 1) {
+                } else if (process === 'Ферментация (Брожение)' && currentStage === 2) {
                     document.getElementById('main-image').src = 'Итог/Виноград/сброженный_виноград.png';
                     document.getElementById('caption').textContent = 'Сброженный виноград';
                     currentStage = 3;

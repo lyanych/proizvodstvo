@@ -82,36 +82,35 @@
 </head>
 <body>
     <div id="items">
-        <div class="item" onclick="selectItem('Сырье/виноград.png', 'Виноград')">
+        <div class="item" onclick="selectItem('виноград.png', 'Виноград')">
             <img src="виноград.png" alt="Виноград">
             <div class="caption">Виноград</div>
         </div>
 
-        <div class="item" onclick="selectItem('Сырье/яблоки.png', 'Яблоки')">
+        <div class="item" onclick="selectItem('яблоки.png', 'Яблоки')">
             <img src="яблоки.png" alt="Яблоки">
             <div class="caption">Яблоки</div>
         </div>
 
-        <div class="item" onclick="selectItem('Сырье/фрукты_ягоды.png', 'Фрукты/Ягоды')">
+        <div class="item" onclick="selectItem('фрукты_ягоды.png', 'Фрукты/Ягоды')">
             <img src="фрукты_ягоды.png" alt="Фрукты/Ягоды">
             <div class="caption">Фрукты/Ягоды</div>
         </div>
 
-        <div class="item" onclick="selectItem('Сырье/сахарный_тростник.png', 'Сахарный тростник')">
+        <div class="item" onclick="selectItem('сахарный_тростник.png', 'Сахарный тростник')">
             <img src="сахарный_тростник.png" alt="Сахарный тростник">
             <div class="caption">Сахарный тростник</div>
         </div>
 
-        <div class="item" onclick="selectItem('Сырье/голубая_агава.png', 'Голубая агава')">
+        <div class="item" onclick="selectItem('голубая_агава.png', 'Голубая агава')">
             <img src="голубая_агава.png" alt="Голубая агава">
             <div class="caption">Голубая агава</div>
         </div>
 
-        <div class="item" onclick="selectItem('Сырье/зерно.png', 'Зерно')">
+        <div class="item" onclick="selectItem('зерно.png', 'Зерно')">
             <img src="зерно.png" alt="Зерно">
             <div class="caption">Зерно</div>
         </div>
-
     </div>
 
     <div id="app">
@@ -124,8 +123,8 @@
 
             <ul id="options-list"></ul>
 
-<button onclick="goBack()">Назад</button>
-<button onclick="goToMain()">На главный экран</button>
+            <button onclick="goBack()">Назад</button>
+            <button onclick="goToMain()">На главный экран</button>
         </div>
     </div>
 
@@ -136,16 +135,16 @@
         ];
 
         const processes = [
-            'Мацерация (Настаивание)', 'Фильтрация', 'Дистилляция', 'Ректификация', 'Ферментация (Брожение)', 
-            'Гомогенизация', 'Выдержка', 'Прессование (Отжим сока)', 'Запекание', 'Замачивание', 
-            'Проращивание', 'Сушка', 'Варка с хмелем', 'Разваривание под давлением', 
-            'Дробление', 'Гребнеотделение'
+            'Мацерация (Настаивание)', 'Фильтрация', 'Дистилляция (перегонка)', 'Ректификация', 'Ферментация (Брожение)', 
+            'Гомогенизация', 'Выдержка', 'Прессование (Отжим сока)', 'Запекание', 'Варка', 'Дробление', 'Гребнеотделение', 'Соложение'
         ];
 
         let selectedItem = null;
         let currentStage = 0;
+        let previousStages = [];
 
         function selectItem(imageSrc, captionText) {
+            previousStages = []; // Очистить историю при новом выборе
             selectedItem = captionText;
             currentStage = 0;
             document.getElementById('items').style.display = 'none';
@@ -175,95 +174,93 @@
             });
         }
 
-function applyProcess(process) {
-    if (selectedItem === 'Виноград') {
-        if (process === 'Гребнеотделение' && currentStage === 0) {
-            document.getElementById('main-image').src = 'Итог/Виноград/очищенный_виноград.png';
-            document.getElementById('caption').textContent = 'Очищенный виноград';
-            currentStage = 1;
-        } else if (process === 'Ферментация (Брожение)' && currentStage === 1) {
-            document.getElementById('main-image').src = 'Итог/Виноград/сброженный_виноград.png';
-            document.getElementById('caption').textContent = 'Сброженный виноград';
-            currentStage = 2;
-        } else if (process === 'Прессование (Отжим сока)') {
-            if (currentStage === 2) {
-                document.getElementById('main-image').src = 'Итог/Виноград/брага.png';
-                document.getElementById('caption').textContent = 'Какая-то брага, но не вино';
-                
-                // Показать сообщение с кнопкой для повторной попытки
-                showAlertWithRetry();
-                currentStage = 3;
-            } else if (currentStage === 1) {
-                document.getElementById('main-image').src = 'Итог/Виноград/виноградный_сок.png';
-                document.getElementById('caption').textContent = 'Виноградный сок';
-                currentStage = 4;
+        function applyProcess(process) {
+            previousStages.push({ imageSrc: document.getElementById('main-image').src, caption: document.getElementById('caption').textContent });
+            
+            if (selectedItem === 'Виноград') {
+                if (process === 'Гребнеотделение' && currentStage === 0) {
+                    document.getElementById('main-image').src = 'очищенный_виноград.png';
+                    document.getElementById('caption').textContent = 'Очищенный виноград';
+                    currentStage = 1;
+                } else if (process === 'Ферментация (Брожение)' && currentStage === 1) {
+                    document.getElementById('main-image').src = 'сброженный_виноград.png';
+                    document.getElementById('caption').textContent = 'Сброженный виноград';
+                    currentStage = 2;
+                } else if (process === 'Прессование (Отжим сока)') {
+                    if (currentStage === 2) {
+                        document.getElementById('main-image').src = 'брага.png';
+                        document.getElementById('caption').textContent = 'Какая-то брага, но не вино';
+                        showAlertWithRetry();
+                        currentStage = 3;
+                    } else if (currentStage === 1) {
+                        document.getElementById('main-image').src = 'виноградный_сок.png';
+                        document.getElementById('caption').textContent = 'Виноградный сок';
+                        currentStage = 4;
+                    }
+                } else if (process === 'Мацерация (Настаивание)' && currentStage === 4) {
+                    document.getElementById('main-image').src = 'красный_виноградный_сок.png';
+                    document.getElementById('caption').textContent = 'Красный виноградный сок';
+                    currentStage = 5;
+                } else if (process === 'Ферментация (Брожение)' && currentStage === 5) {
+                    document.getElementById('main-image').src = 'красный_виноматериал.png';
+                    document.getElementById('caption').textContent = 'Красное вино';
+                    currentStage = 6;
+                } else {
+                    alert(`Процесс "${process}" не применим к "${selectedItem}" на этом этапе.`);
+                }
             }
-        } else if (process === 'Мацерация (Настаивание)' && currentStage === 4) {
-            document.getElementById('main-image').src = 'Итог/Виноград/красный_виноградный_сок.png';
-            document.getElementById('caption').textContent = 'Красный виноградный сок';
-            currentStage = 5;
-        } else if (process === 'Ферментация (Брожение)' && currentStage === 5) {
-            document.getElementById('main-image').src = 'Итог/Виноград/красный_виноматериал.png';
-            document.getElementById('caption').textContent = 'Красный виноматериал';
-            currentStage = 6;
-        } else {
-            alert(`Процесс "${process}" не применим к "${selectedItem}" на этом этапе.`);
         }
-    }
-}
 
-// Функция для показа сообщения с кнопкой "Попробовать снова"
-function showAlertWithRetry() {
-    const alertDiv = document.createElement('div');
-    alertDiv.style.position = 'fixed';
-    alertDiv.style.top = '50%';
-    alertDiv.style.left = '50%';
-    alertDiv.style.transform = 'translate(-50%, -50%)';
-    alertDiv.style.backgroundColor = 'white';
-    alertDiv.style.border = '1px solid #ccc';
-    alertDiv.style.padding = '20px';
-    alertDiv.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
-    alertDiv.style.zIndex = '1000';
+        function goBack() {
+            if (previousStages.length > 0) {
+                const lastStage = previousStages.pop();
+                document.getElementById('main-image').src = lastStage.imageSrc;
+                document.getElementById('caption').textContent = lastStage.caption;
+                currentStage--;
+            } else {
+                alert("Назад больше нельзя.");
+            }
+        }
 
-    const message = document.createElement('p');
-    message.textContent = 'Так ничего не выйдет, попробуйте сначала';
-    alertDiv.appendChild(message);
+        function goToMain() {
+            document.getElementById('items').style.display = 'flex';
+            document.getElementById('app').style.display = 'none';
+            selectedItem = null;
+            currentStage = 0;
+            previousStages.length = 0;
+        }
 
-    const retryButton = document.createElement('button');
-    retryButton.textContent = 'Попробовать снова';
-    retryButton.onclick = () => {
-        document.getElementById('items').style.display = 'flex';
-        document.getElementById('app').style.display = 'none';
-        document.getElementById('main-image').src = '';
-        document.getElementById('caption').textContent = '';
-        selectedItem = null;
-        currentStage = 0;
-        document.body.removeChild(alertDiv); // Удалить окно с сообщением
-    };
-    alertDiv.appendChild(retryButton);
+        function showAlertWithRetry() {
+            const alertDiv = document.createElement('div');
+            alertDiv.style.position = 'fixed';
+            alertDiv.style.top = '50%';
+            alertDiv.style.left = '50%';
+            alertDiv.style.transform = 'translate(-50%, -50%)';
+            alertDiv.style.backgroundColor = 'white';
+            alertDiv.style.border = '1px solid #ccc';
+            alertDiv.style.padding = '20px';
+            alertDiv.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
+            alertDiv.style.zIndex = '1000';
 
-    document.body.appendChild(alertDiv); // Добавить окно с сообщением на страницу
+            const message = document.createElement('p');
+            message.textContent = 'Так ничего не выйдет, попробуйте сначала';
+            alertDiv.appendChild(message);
 
-function goBack() {
-    if (previousStages.length > 0) {
-        const lastStage = previousStages.pop();
-        document.getElementById('main-image').src = lastStage.imageSrc;
-        document.getElementById('caption').textContent = lastStage.caption;
-        currentStage--;
-    } else {
-        alert("Назад больше нельзя.");
-    }
-}
+            const retryButton = document.createElement('button');
+            retryButton.textContent = 'Попробовать снова';
+            retryButton.onclick = () => {
+                document.getElementById('items').style.display = 'flex';
+                document.getElementById('app').style.display = 'none';
+                document.getElementById('main-image').src = '';
+                document.getElementById('caption').textContent = '';
+                selectedItem = null;
+                currentStage = 0;
+                document.body.removeChild(alertDiv); // Удалить окно с сообщением
+            };
+            alertDiv.appendChild(retryButton);
 
-function goToMain() {
-    document.getElementById('items').style.display = 'flex';
-    document.getElementById('app').style.display = 'none';
-    selectedItem = null;
-    currentStage = 0;
-    previousStages.length = 0;
-}
-
-}
+            document.body.appendChild(alertDiv); // Добавить окно с сообщением на страницу
+        }
     </script>
 </body>
 </html>

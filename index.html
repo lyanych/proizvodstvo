@@ -32,27 +32,34 @@
             justify-content: space-between;
         }
 
-        .item, .process-item, .additive-item {
-            text-align: center;
-            margin: 10px;
-            cursor: pointer;
-        }
+        .process-item, .additive-item {
+    margin: 10px;
+    cursor: pointer;
+}
 
-        .item img, .process-item img, .additive-item img {
-            width: 100px;
-            height: 100px;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
+        .process-item img, .additive-item img {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.3s ease;
+}
 
-        .item img:hover, .process-item img:hover, .additive-item img:hover {
-            transform: scale(1.1);
-        }
+        .process-item img:hover, .additive-item img:hover {
+    transform: scale(1.1);
+}
 
         .caption {
             margin-top: 10px;
             font-size: 18px;
         }
+
+
+
+         #controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
 
         #additives, #processes {
             display: flex;
@@ -61,14 +68,24 @@
         }
 
         #additives {
-            position: absolute;
-            left: -120px;
-        }
+    flex: 1;
+    text-align: center;
+}
 
         #processes {
-            position: absolute;
-            right: -120px;
-        }
+    flex: 1;
+    text-align: center;
+}
+
+
+        #go-to-main {
+    display: none;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+
 
         #items {
             display: flex;
@@ -76,6 +93,8 @@
             justify-content: center;
             align-items: center;
         }
+
+
 
         button {
             padding: 10px 20px;
@@ -127,11 +146,12 @@
 
 
 
+   <div id="app">
+    <img id="main-image" src="" alt="">
+    <div id="caption"></div>
 
 
 //ДОБАВКИ
-
-    <div id="app">
     <div id="additives">
         <div class="additive-item" onclick="applyAdditive('Спирт')">
             <img src="Добавки/спирт.png" alt="Спирт">
@@ -189,14 +209,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-        <img id="main-image" src="" alt="">
-        <div id="caption"></div>
 
 
 
@@ -274,13 +286,16 @@
 
 
 
-
-
-
-        <div id="tools">
             <button onclick="goToMain()">На главный экран</button>
-        </div>
     </div>
+
+
+
+
+
+
+
+
 
     <script>
         let selectedItem = null;
@@ -387,12 +402,29 @@ function showAlertWithRetry() {
 
 
 
-        function goToMain() {
-            document.getElementById('items').style.display = 'flex';
-            document.getElementById('app').style.display = 'none';
-            selectedItem = null;
-            currentStage = 0;
-        }
+        function selectItem(imageSrc, captionText) {
+    selectedItem = captionText;
+    currentStage = 0;
+    document.getElementById('items').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('main-image').src = imageSrc;
+    document.getElementById('caption').textContent = captionText;
+
+    // Показать кнопки
+    document.getElementById('controls').style.display = 'flex';
+    document.getElementById('go-to-main').style.display = 'block';
+}
+
+function goToMain() {
+    document.getElementById('items').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('controls').style.display = 'none'; // Скрыть кнопки
+    document.getElementById('go-to-main').style.display = 'none';
+    selectedItem = null;
+    currentStage = 0;
+}
+
+
     </script>
 </body>
 </html>

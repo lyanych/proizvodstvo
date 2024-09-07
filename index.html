@@ -186,6 +186,10 @@
             { name: 'Розлив', image: 'Процессы/розлив.png' }
         ];
 
+    // Глобальная переменная для отслеживания получения спирта
+        let spirt = false;
+        let brendi = false;
+
         let selectedItem = null;
         let currentStage = 0;
 
@@ -282,12 +286,65 @@
                 } else if (process === 'Прессование (Отжим сока)' && currentStage === 3) {
                     document.getElementById('main-image').src = 'Итог/Виноград/брага.png';
                     document.getElementById('caption').textContent = 'Какая-то брага, но не вино';
-                    showAlertWithRetry(); // Сообщение о неудаче и перезапуск
                     currentStage = 27;
+                    showAlertWithRetry(); // Сообщение о неудаче и перезапуск
                 } else if (process === 'Прессование (Отжим сока)' && currentStage === 2) {
                     document.getElementById('main-image').src = 'Итог/Виноград/виноградный_сок.png';
                     document.getElementById('caption').textContent = 'Виноградный сок';
                     currentStage = 4;
+                } else if (process === 'Ферментация (Брожение)' && currentStage === 4) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/виноматериал.png';
+                    document.getElementById('caption').textContent = 'Виноматериал';
+                    currentStage = 12;
+                } else if (process === 'Розлив' && currentStage === 12) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/белое_вино.png';
+                    document.getElementById('caption').textContent = 'Белое вино';
+                    currentStage = 13;
+                } else if (process === 'Выдержка' && currentStage === 12) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/виноматериал.png';
+                    document.getElementById('caption').textContent = 'Выдержанный виноматериал';
+                    currentStage = 14;
+                } else if (process === 'Розлив' && currentStage === 14) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/белое_выдержанное_вино.png';
+                    document.getElementById('caption').textContent = 'Белое выдержанное вино';
+                    currentStage = 15;
+                } else if (process === 'Ферментация (Брожение)' && currentStage === 13) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/шампанское.png';
+                    document.getElementById('caption').textContent = 'Шампанское';
+                    currentStage = 16;
+                } else if (process === 'Ферментация (Брожение)' && currentStage === 12) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/белое_игристое.png';
+                    document.getElementById('caption').textContent = 'Белое игристое вино';
+                    currentStage = 17;
+                } else if (process === 'Сатурация' && currentStage === 12) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/белый_ГАВС.png';
+                    document.getElementById('caption').textContent = 'Белый газированный виноградосодержащий напиток';
+                    currentStage = 18;
+                } else if (process === 'Дистилляция (перегонка)' && currentStage === 12) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/Дистиллят.png';
+                    document.getElementById('caption').textContent = 'Дистиллят винный';
+                    currentStage = 19;
+                } else if (process === 'Дистилляция (перегонка)' && currentStage === 19) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/Дистиллят.png';
+                    document.getElementById('caption').textContent = 'Дистиллят винный с более сдержанным вкусом';
+                    currentStage = 20;
+                } else if (process === 'Выдержка' && currentStage === 19) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/бренди.png';
+                    document.getElementById('caption').textContent = 'Бренди';
+                    currentStage = 21;
+                } else if (process === 'Выдержка' && currentStage === 20) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/бренди_2_выдержка.png';
+                    document.getElementById('caption').textContent = 'Бренди с более сдержанным вкусом';
+                    currentStage = 22;
+                } else if (process === 'Выдержка' && currentStage === 22) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/коньяк.png';
+                    document.getElementById('caption').textContent = 'Коньяк';
+                    currentStage = 23;
+                } else if (process === 'Выдержка' && currentStage === 21) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/бренди_выдержка.png';
+                    document.getElementById('caption').textContent = 'Бренди';
+                    currentStage = 24;
+
 
                 // Красное
                 } else if (process === 'Мацерация (Настаивание)' && currentStage === 4) {

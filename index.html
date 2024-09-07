@@ -190,14 +190,13 @@
         let currentStage = 0;
 
         function selectItem(imageSrc, captionText) {
-            selectedItem = captionText;
-            currentStage = 0;
-            document.getElementById('items').style.display = 'none';
-            document.getElementById('app').style.display = 'block';
-            document.getElementById('main-image').src = imageSrc;
-            document.getElementById('caption').textContent = captionText;
-            updateOptions();
-        }
+    selectedItem = captionText;
+    currentStage = 0;  // Сбрасываем этап для нового ингредиента
+    document.getElementById('items').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('main-image').src = imageSrc;
+    document.getElementById('caption').textContent = captionText;
+}
 
         function updateOptions() {
             const processesContainer = document.getElementById('processes');

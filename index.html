@@ -12,7 +12,6 @@
             overflow-x: hidden; /* Убираем горизонтальную прокрутку */
         }
 
-
         #items {
             display: flex;
             flex-wrap: wrap;
@@ -109,42 +108,18 @@
 </head>
 <body>
     <div id="items">
-    <div class="item" onclick="selectItem('Сырье/виноград.png', 'Виноград')">
-        <img src="Сырье/виноград.png" alt="Виноград">
-        <div class="caption">Виноград</div>
+        <div class="item" onclick="selectItem('Сырье/виноград.png', 'Виноград')">
+            <img src="Сырье/виноград.png" alt="Виноград">
+            <div class="caption">Виноград</div>
+        </div>
+        <!-- Добавь остальные ингредиенты здесь -->
     </div>
-
-    <div class="item" onclick="selectItem('Сырье/яблоки.png', 'Яблоки')">
-        <img src="Сырье/яблоки.png" alt="Яблоки">
-        <div class="caption">Яблоки</div>
-    </div>
-
-    <div class="item" onclick="selectItem('Сырье/фрукты_ягоды.png', 'Фрукты/Ягоды')">
-        <img src="Сырье/фрукты_ягоды.png" alt="Фрукты/Ягоды">
-        <div class="caption">Фрукты/Ягоды</div>
-    </div>
-
-    <div class="item" onclick="selectItem('Сырье/сахарный_тростник.png', 'Сахарный тростник')">
-        <img src="Сырье/сахарный_тростник.png" alt="Сахарный тростник">
-        <div class="caption">Сахарный тростник</div>
-    </div>
-
-    <div class="item" onclick="selectItem('Сырье/голубая_агава.png', 'Голубая агава')">
-        <img src="Сырье/голубая_агава.png" alt="Голубая агава">
-        <div class="caption">Голубая агава</div>
-    </div>
-
-    <div class="item" onclick="selectItem('Сырье/зерно.png', 'Зерно')">
-        <img src="Сырье/зерно.png" alt="Зерно">
-        <div class="caption">Зерно</div>
-    </div>
-</div>
 
     <div id="app">
         <img id="main-image" src="" alt="Выбранный ингредиент">
         <div id="caption"></div>
 
-     //   <div id="tools">
+        <div id="tools">
             <div id="processes">
                 <!-- Процессы будут добавлены динамически -->
             </div>
@@ -152,7 +127,7 @@
             <div id="additives">
                 <!-- Добавки будут добавлены динамически -->
             </div>
-       // </div>
+        </div>
 
         <button id="back-to-main" onclick="goToMain()">На главный экран</button>
     </div>
@@ -190,9 +165,6 @@
         let selectedItem = null;
         let currentStage = 0;
 
-
-
-
         function selectItem(imageSrc, captionText) {
             console.log("Выбран элемент:", captionText); // Выводим сообщение в консоль
 
@@ -206,16 +178,17 @@
             // Обновляем изображение и подпись
             document.getElementById('main-image').src = imageSrc;
             document.getElementById('caption').textContent = captionText;
+
+            // Обновляем процессы и добавки
+            updateOptions();
         }
 
         function goToMain() {
             document.getElementById('items').style.display = 'flex';
             document.getElementById('app').style.display = 'none';
+            selectedItem = null;
+            currentStage = 0;
         }
-
-
-
-
 
         function updateOptions() {
             const processesContainer = document.getElementById('processes');
@@ -265,70 +238,71 @@
         }
 
         function applyProcess(process) {
-    if (selectedItem === 'Виноград') {
-        if (process === 'Ферментация (Брожение)' && currentStage === 0) {
-            document.getElementById('main-image').src = 'Итог/Виноград/сброженный_виноград_гроздь.png';
-            document.getElementById('caption').textContent = 'Сброженный виноград';
-            showAlertWithRetry(); // Сообщение о неудаче и перезапуск
-            currentStage = 1;
-        } else if (process === 'Гребнеотделение' && currentStage === 0) {
-            document.getElementById('main-image').src = 'Итог/Виноград/очищенный_виноград.png';
-            document.getElementById('caption').textContent = 'Очищенный виноград';
-            currentStage = 2;
-        } else if (process === 'Ферментация (Брожение)' && currentStage === 1) {
-            document.getElementById('main-image').src = 'Итог/Виноград/сброженный_виноград.png';
-            document.getElementById('caption').textContent = 'Сброженный виноград';
-            currentStage = 3;
-        } else if (process === 'Прессование (Отжим сока)' && currentStage === 3) {
-            document.getElementById('main-image').src = 'Итог/Виноград/брага.png';
-            document.getElementById('caption').textContent = 'Какая-то брага, но не вино';
-            showAlertWithRetry(); // Сообщение о неудаче и перезапуск
-            currentStage = 27;
-        } else if (process === 'Прессование (Отжим сока)' && currentStage === 2) {
-            document.getElementById('main-image').src = 'Итог/Виноград/виноградный_сок.png';
-            document.getElementById('caption').textContent = 'Виноградный сок';
-            currentStage = 4;
+            if (selectedItem === 'Виноград') {
+                if (process === 'Ферментация (Брожение)' && currentStage === 0) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/сброженный_виноград_гроздь.png';
+                    document.getElementById('caption').textContent = 'Сброженный виноград';
+                    showAlertWithRetry(); // Сообщение о неудаче и перезапуск
+                    currentStage = 1;
+                } else if (process === 'Гребнеотделение' && currentStage === 0) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/очищенный_виноград.png';
+                    document.getElementById('caption').textContent = 'Очищенный виноград';
+                    currentStage = 2;
+                } else if (process === 'Ферментация (Брожение)' && currentStage === 1) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/сброженный_виноград.png';
+                    document.getElementById('caption').textContent = 'Сброженный виноград';
+                    currentStage = 3;
+                } else if (process === 'Прессование (Отжим сока)' && currentStage === 3) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/брага.png';
+                    document.getElementById('caption').textContent = 'Какая-то брага, но не вино';
+                    showAlertWithRetry(); // Сообщение о неудаче и перезапуск
+                    currentStage = 27;
+                } else if (process === 'Прессование (Отжим сока)' && currentStage === 2) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/виноградный_сок.png';
+                    document.getElementById('caption').textContent = 'Виноградный сок';
+                    currentStage = 4;
 
-        // Красное
-        } else if (process === 'Мацерация (Настаивание)' && currentStage === 4) {
-            document.getElementById('main-image').src = 'Итог/Виноград/красный_виноградный_сок.png';
-            document.getElementById('caption').textContent = 'Красный виноградный сок';
-            currentStage = 5;
-        } else if (process === 'Ферментация (Брожение)' && currentStage === 5) {
-            document.getElementById('main-image').src = 'Итог/Виноград/красный_виноматериал.png';
-            document.getElementById('caption').textContent = 'Красный виноматериал';
-            currentStage = 6;
-        } else if (process === 'Розлив' && currentStage === 6) {
-            document.getElementById('main-image').src = 'Итог/Виноград/красное_вино.png';
-            document.getElementById('caption').textContent = 'Красное вино';
-            currentStage = 7;
-        } else if (process === 'Выдержка' && currentStage === 6) {
-            document.getElementById('main-image').src = 'Итог/Виноград/красный_виноматериал.png';
-            document.getElementById('caption').textContent = 'Выдержанный красный виноматериал';
-            currentStage = 8;
-        } else if (process === 'Розлив' && currentStage === 8) {
-            document.getElementById('main-image').src = 'Итог/Виноград/красное_выдержанное_вино.png';
-            document.getElementById('caption').textContent = 'Красное выдержанное вино';
-            currentStage = 9;
-        } else if (process === 'Ферментация (Брожение)' && currentStage === 6) {
-            document.getElementById('main-image').src = 'Итог/Виноград/красное_игристое.png';
-            document.getElementById('caption').textContent = 'Красное игристое вино';
-            currentStage = 10;
-        } else if (process === 'Сатурация' && currentStage === 6) {
-            document.getElementById('main-image').src = 'Итог/Виноград/красный_ГАВС.png';
-            document.getElementById('caption').textContent = 'Красный газированный виноградосодержащий напиток';
-            currentStage = 11;
+                // Красное
+                } else if (process === 'Мацерация (Настаивание)' && currentStage === 4) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/красный_виноградный_сок.png';
+                    document.getElementById('caption').textContent = 'Красный виноградный сок';
+                    currentStage = 5;
+                } else if (process === 'Ферментация (Брожение)' && currentStage === 5) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/красный_виноматериал.png';
+                    document.getElementById('caption').textContent = 'Красный виноматериал';
+                    currentStage = 6;
+                } else if (process === 'Розлив' && currentStage === 6) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/красное_вино.png';
+                    document.getElementById('caption').textContent = 'Красное вино';
+                    currentStage = 7;
+                } else if (process === 'Выдержка' && currentStage === 6) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/красный_виноматериал.png';
+                    document.getElementById('caption').textContent = 'Выдержанный красный виноматериал';
+                    currentStage = 8;
+                } else if (process === 'Розлив' && currentStage === 8) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/красное_выдержанное_вино.png';
+                    document.getElementById('caption').textContent = 'Красное выдержанное вино';
+                    currentStage = 9;
+                } else if (process === 'Ферментация (Брожение)' && currentStage === 6) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/красное_игристое.png';
+                    document.getElementById('caption').textContent = 'Красное игристое вино';
+                    currentStage = 10;
+                } else if (process === 'Сатурация' && currentStage === 6) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/красный_ГАВС.png';
+                    document.getElementById('caption').textContent = 'Красный газированный виноградосодержащий напиток';
+                    currentStage = 11;
+                } else {
+                    showAlertWithRetry(); // Сообщение о неудаче и перезапуск
+                }
+            }
         }
 
         function applyAdditive(additive) {
             // Логика для обработки добавок
         }
 
-        function goToMain() {
-            document.getElementById('items').style.display = 'flex';
-            document.getElementById('app').style.display = 'none';
-            selectedItem = null;
-            currentStage = 0;
+        function showAlertWithRetry() {
+            alert("Процесс неудачен. Попробуйте другой процесс.");
         }
     </script>
 </body>

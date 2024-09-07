@@ -266,12 +266,15 @@
                 if (process === 'Ферментация (Брожение)' && currentStage === 0) {
                     document.getElementById('main-image').src = 'Итог/Виноград/сброженный_виноград_гроздь.png';
                     document.getElementById('caption').textContent = 'Сброженный виноград';
-                    showAlertWithRetry(); // Сообщение о неудаче и перезапуск
                     currentStage = 1;
                 } else if (process === 'Гребнеотделение' && currentStage === 0) {
                     document.getElementById('main-image').src = 'Итог/Виноград/очищенный_виноград.png';
                     document.getElementById('caption').textContent = 'Очищенный виноград';
                     currentStage = 2;
+                } else if (process === 'Гребнеотделение' && currentStage === 1) {
+                    document.getElementById('main-image').src = 'Итог/Виноград/сброженный_виноград.png';
+                    document.getElementById('caption').textContent = 'Сброженный виноград';
+                    currentStage = 3;
                 } else if (process === 'Ферментация (Брожение)' && currentStage === 2) {
                     document.getElementById('main-image').src = 'Итог/Виноград/сброженный_виноград.png';
                     document.getElementById('caption').textContent = 'Сброженный виноград';

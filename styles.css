@@ -1,0 +1,164 @@
+/* Основной стиль */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+background: linear-gradient(to right, rgba(211, 211, 211, 0.8), rgba(245, 183, 177, 0.3)); /* Градиент с прозрачностью */
+}
+
+#items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.item {
+    text-align: center;
+    margin: 10px;
+    cursor: pointer;
+    width: 150px;
+}
+
+.item img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.item img:hover {
+    transform: scale(1.1);
+}
+
+.caption {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+#app {
+    display: none;
+    justify-content: space-between; /* Элементы занимают пространство по ширине */
+    align-items: flex-start; /* Все элементы выровнены по верхней части */
+    gap: 20px; /* Промежуток между блоками */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#image-tools-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%; /* Заполняет всю ширину */
+}
+
+#processes, #main-image, #additives {
+  flex: 1;
+  max-width: 300px;
+  margin: 0 10px;
+}
+
+#main-image-container {
+    display: flex;
+    flex-direction: column; /* Размещаем изображение и подпись по вертикали */
+    align-items: center; /* Выравниваем по центру */
+    max-width: 400px;
+    text-align: center;
+}
+
+#main-image {
+    max-width: 100%;
+    max-height: 400px; /* Максимальная высота для основного изображения */
+    object-fit: cover;
+}
+
+#caption {
+    margin-top: 10px; /* Отступ между изображением и подписью */
+    font-size: 16px;
+}
+
+#processes, #additives {
+    flex: 1;
+    margin: 0 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Автоматическое заполнение столбцов */
+    gap: 10px;
+    justify-items: center; /* Центрирует элементы внутри ячеек */
+    width: 100%; /* Позволяет элементам занимать всю ширину контейнера */
+    max-width: none; /* Убираем максимальную ширину */
+    border: 1px solid #00796b; /* Толстая рамка тёмно-зелёного цвета */
+    border-radius: 10px; /* Скругление углов рамки */
+    padding: 10px; /* Отступы внутри блока */
+    box-sizing: border-box; /* Включает отступы и границы в общую ширину и высоту */
+}
+
+#processes {
+  text-align: left; /* Процессы слева */
+}
+
+#additives {
+  text-align: right; /* Добавки справа */
+}
+
+
+#main-image {
+    max-width: 100%;
+    max-height: 400px; /* Увеличенная высота для основного изображения */
+    object-fit: cover; /* Сохраняем пропорции */
+}
+
+
+
+
+.process-item, .additive-item {
+    text-align: center;
+    margin: 10px;
+    cursor: pointer;
+    width: 120px;
+}
+
+.process-item img, .additive-item img {
+    max-width: 100%;
+    max-height: 150px; /* Максимальная высота для процессов и добавок */
+    object-fit: cover;
+}
+
+
+.process-item img:hover, .additive-item img:hover {
+    transform: scale(1.1);
+}
+
+.process-caption, .additive-caption {
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+#back-to-main {
+    margin: 10px;
+    background-color: #00796b; /* Тёмно-зелёный фон кнопки */
+    color: white; /* Белый текст */
+    border: none; /* Без рамки */
+    border-radius: 25px; /* Скругление углов для круглой формы */
+    padding: 10px 15px; /* Уменьшенные отступы внутри кнопки */
+    font-size: 14px; /* Уменьшенный размер шрифта */
+    font-weight: bold; /* Жирный шрифт */
+    text-transform: uppercase; /* Заглавные буквы */
+    cursor: pointer; /* Курсор в виде руки */
+    display: block; /* Блоковый элемент */
+    margin-left: auto; /* Выравнивание по правому краю */
+}
+
+#back-to-main:hover {
+    background-color: #004d40; /* Более тёмный фон при наведении */
+    transform: scale(1.1); /* Лёгкое увеличение при наведении */
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    #app {
+        flex-direction: column; /* Вертикальное размещение элементов на мобильных устройствах */
+        align-items: center;
+        height: auto; /* Высота на мобильных устройствах */
+    }
+
+}

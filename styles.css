@@ -134,13 +134,13 @@ background: linear-gradient(to right, rgba(211, 211, 211, 0.8), rgba(245, 183, 1
 }
 
 #back-to-main {
-    margin: 10px;
+    margin: 20px;
     background-color: #00796b; /* Тёмно-зелёный фон кнопки */
     color: white; /* Белый текст */
     border: none; /* Без рамки */
     border-radius: 25px; /* Скругление углов для круглой формы */
-    padding: 10px 15px; /* Уменьшенные отступы внутри кнопки */
-    font-size: 14px; /* Уменьшенный размер шрифта */
+    padding: 30px 60px; /* Уменьшенные отступы внутри кнопки */
+    font-size: 15px; /* Уменьшенный размер шрифта */
     font-weight: bold; /* Жирный шрифт */
     text-transform: uppercase; /* Заглавные буквы */
     cursor: pointer; /* Курсор в виде руки */
@@ -159,15 +159,56 @@ background: linear-gradient(to right, rgba(211, 211, 211, 0.8), rgba(245, 183, 1
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.9);
     color: white;
-    padding: 20px;
-    border-radius: 10px;
-    z-index: 1000;
+    padding: 60px;
+
+
+
+
+#confirmation-message {
+
+    color: white; /* Белый текст */
+    font-size: 40px; /* Уменьшенный размер шрифта */
+    font-weight: bold; /* Жирный шрифт */
+    text-transform: uppercase; /* Заглавные буквы */
 }
 
-	
 
+#button-container {
+    display: flex; /* Включаем Flexbox */
+    justify-content: center; /* Центрируем кнопки по горизонтали */
+    gap: 20px; /* Расстояние между кнопками */
+    margin-top: 20px; /* Отступ сверху */
+}
+
+#confirm-yes, #confirm-no {
+    padding: 15px 30px;
+    background-color: #28a745; /* Зеленый цвет для кнопки "да" */
+    color: white; /* Цвет текста */
+    border: none; /* Убираем рамку */
+    border-radius: 10px; /* Скругленные углы */
+    font-size: 18px; /* Размер текста */
+    font-weight: bold; /* Жирный текст */
+    text-transform: uppercase; /* Заглавные буквы */
+    transition: all 0.3s ease; /* Плавные переходы */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Тень */
+    cursor: pointer; /* Курсор в виде руки */
+}
+
+#confirm-no {
+    background-color: #dc3545; /* Красный цвет для кнопки "нет" */
+}
+
+#confirm-yes:hover {
+    background-color: #218838; /* Темно-зеленый при наведении на кнопку "да" */
+    transform: scale(1.15); /* Увеличение при наведении */
+}
+
+#confirm-no:hover {
+    background-color: #c82333; /* Темно-красный при наведении на кнопку "нет" */
+    transform: scale(1.15); /* Увеличение при наведении */
+}
 
 
 /* Адаптивность */
